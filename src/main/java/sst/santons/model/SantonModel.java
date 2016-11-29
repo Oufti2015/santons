@@ -8,6 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import sst.santons.data.Manufacturer;
+import sst.santons.data.Santon;
 
 public class SantonModel {
 
@@ -15,22 +17,27 @@ public class SantonModel {
     private StringProperty idManufacturer;
     private StringProperty name;
     private StringProperty surname;
-    private ObjectProperty<ManufacturerModel> manufacturer;
+    private StringProperty walloonname;
+    private ObjectProperty<Manufacturer> manufacturer;
     private ObjectProperty<LocalDate> acquisitionDate;
     private StringProperty picture;
     private StringProperty manufacturerLink;
 
-    public SantonModel(Integer id, String idManufacturer, String name, String surname, ManufacturerModel manufacturer, LocalDate acquisitionDate, String picture,
-	    String manufacturerLink) {
+    public SantonModel(Santon santon) {
 	super();
-	this.id = new SimpleIntegerProperty(id);
-	this.idManufacturer = new SimpleStringProperty(idManufacturer);
-	this.name = new SimpleStringProperty(name);
-	this.surname = new SimpleStringProperty(surname);
-	this.manufacturer = new SimpleObjectProperty<>(manufacturer);
-	this.acquisitionDate = new SimpleObjectProperty<>(acquisitionDate);
-	this.picture = new SimpleStringProperty(picture);
-	this.manufacturerLink = new SimpleStringProperty(manufacturerLink);
+	if (santon.getId() != null) {
+	    this.id = new SimpleIntegerProperty(santon.getId());
+	} else {
+	    this.id = new SimpleIntegerProperty(-1);
+	}
+	this.idManufacturer = new SimpleStringProperty(santon.getIdManufacturer());
+	this.name = new SimpleStringProperty(santon.getName());
+	this.surname = new SimpleStringProperty(santon.getSurname());
+	this.walloonname = new SimpleStringProperty(santon.getWalloonName());
+	this.manufacturer = new SimpleObjectProperty<>(santon.getManufacturer());
+	this.acquisitionDate = new SimpleObjectProperty<>(santon.getAcquisitionDate());
+	this.picture = new SimpleStringProperty(santon.getPicture());
+	this.manufacturerLink = new SimpleStringProperty(santon.getManufacturerLink());
     }
 
     public IntegerProperty id() {
@@ -49,7 +56,11 @@ public class SantonModel {
 	return surname;
     }
 
-    public ObjectProperty<ManufacturerModel> manufacturer() {
+    public StringProperty walloonname() {
+	return walloonname;
+    }
+
+    public ObjectProperty<Manufacturer> manufacturer() {
 	return manufacturer;
     }
 
@@ -81,7 +92,11 @@ public class SantonModel {
 	return surname.get();
     }
 
-    public ManufacturerModel getManufacturer() {
+    public String getWalloonname() {
+	return walloonname.get();
+    }
+
+    public Manufacturer getManufacturer() {
 	return manufacturer.get();
     }
 
@@ -113,7 +128,7 @@ public class SantonModel {
 	this.surname = surname;
     }
 
-    public void setManufacturer(ObjectProperty<ManufacturerModel> manufacturer) {
+    public void setManufacturer(ObjectProperty<Manufacturer> manufacturer) {
 	this.manufacturer = manufacturer;
     }
 
@@ -128,5 +143,4 @@ public class SantonModel {
     public void setManufacturerLink(StringProperty manufacturerLink) {
 	this.manufacturerLink = manufacturerLink;
     }
-
 }

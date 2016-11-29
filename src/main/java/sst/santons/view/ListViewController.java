@@ -7,7 +7,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import sst.santons.model.ManufacturerModel;
+import javafx.scene.control.cell.PropertyValueFactory;
+import sst.santons.cutover.SantonsCutover;
+import sst.santons.data.Manufacturer;
 import sst.santons.model.SantonModel;
 
 public class ListViewController {
@@ -20,9 +22,12 @@ public class ListViewController {
     @FXML
     private TableColumn<SantonModel, String> nameColumn;
     @FXML
-    private TableColumn<SantonModel, ManufacturerModel> manufacturerColumn;
+    private TableColumn<SantonModel, String> waloonNameColumn;
+    @FXML
+    private TableColumn<SantonModel, Manufacturer> manufacturerColumn;
     @FXML
     private TableColumn<SantonModel, LocalDate> dateColumn;
+
     @FXML
     private TableView<SantonModel> missingSantonsTable;
     @FXML
@@ -30,16 +35,16 @@ public class ListViewController {
     @FXML
     private TableColumn<SantonModel, String> nameMissingColumn;
     @FXML
-    private TableColumn<SantonModel, ManufacturerModel> manufacturerMissingColumn;
+    private TableColumn<SantonModel, Manufacturer> manufacturerMissingColumn;
 
     private ObservableList<SantonModel> santonsData = FXCollections.observableArrayList();
 
     public ListViewController() {
-	ManufacturerModel noirhomme = new ManufacturerModel("Robert Noirhomme");
-	santonsData.add(new SantonModel(1, "002", "Tchantchès", null, noirhomme, LocalDate.now(), null, null));
-	santonsData.add(new SantonModel(2, "003", "Le boulanger", null, noirhomme, LocalDate.now(), null, null));
-	santonsData.add(new SantonModel(3, "004", "La femme au châle", null, noirhomme, LocalDate.now(), null, null));
-	santonsData.add(new SantonModel(4, "006", " Le petit meunier", null, noirhomme, LocalDate.now(), null, null));
+	SantonsCutover cutover = new SantonsCutover();
+	cutover.getSantons()
+		.stream()
+		.map(s -> new SantonModel(s))
+		.forEach(sm -> santonsData.add(sm));
     }
 
     /**
@@ -49,11 +54,13 @@ public class ListViewController {
     @FXML
     private void initialize() {
 	// Initialize the person table with the two columns.
-	idColumn.setCellValueFactory(cellData -> cellData.getValue().id());
-	idManufacturerColumn.setCellValueFactory(cellData -> cellData.getValue().idManufacturer());
-	nameColumn.setCellValueFactory(cellData -> cellData.getValue().name());
-	manufacturerColumn.setCellValueFactory(cellData -> cellData.getValue().manufacturer());
-	dateColumn.setCellValueFactory(cellData -> cellData.getValue().acquisitionDate());
+	idColumn.setCellValueFactory(new PropertyValueFactory<SantonModel, Number>("id"));
+	idManufacturerColumn.setCellValueFactory(new PropertyValueFactory<SantonModel, String>("idManufacturer"));
+	nameColumn.setCellValueFactory(new PropertyValueFactory<SantonModel, String>("name"));
+	waloonNameColumn.setCellValueFactory(new PropertyValueFactory<SantonModel, String>("walloonname"));
+	dateColumn.setCellValueFactory(new PropertyValueFactory<SantonModel, LocalDate>("acquisitionDate"));
+	manufacturerColumn.setCellValueFactory(new PropertyValueFactory<SantonModel, Manufacturer>("manufacturer"));
+
 	idManufacturerMissingColumn.setCellValueFactory(cellData -> cellData.getValue().idManufacturer());
 	nameMissingColumn.setCellValueFactory(cellData -> cellData.getValue().name());
 	manufacturerMissingColumn.setCellValueFactory(cellData -> cellData.getValue().manufacturer());
