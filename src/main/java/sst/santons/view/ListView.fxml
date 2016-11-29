@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sst.santons.view.ListViewController">
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="359.0" minHeight="10.0" prefHeight="359.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="359.0" minHeight="10.0" prefHeight="359.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+         <children>
+            <Label text="Mes Santons" />
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <center>
+                  <TableView fx:id="mySantonsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <columns>
+                      <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id" />
+                      <TableColumn fx:id="idManufacturerColumn" prefWidth="78.0" text="Id Source" />
+                        <TableColumn fx:id="nameColumn" prefWidth="500.0" text="Nom" />
+                        <TableColumn fx:id="manufacturerColumn" prefWidth="250.0" text="Santonnier" />
+                        <TableColumn fx:id="dateColumn" prefWidth="110.0" text="Date d'acquisition" />
+                    </columns>
+                  </TableView>
+               </center>
+               <bottom>
+                  <AnchorPane prefHeight="35.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button layoutX="522.0" layoutY="8.0" mnemonicParsing="false" text="Ajouter" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="148.0" AnchorPane.topAnchor="5.0" />
+                        <Button layoutX="601.0" layoutY="8.0" mnemonicParsing="false" text="Modifier" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="5.0" />
+                        <Button layoutX="673.0" layoutY="8.0" mnemonicParsing="false" text="Supprimer" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                     </children>
+                  </AnchorPane>
+               </bottom>
+            </BorderPane>
+            <Label text="Santons manquants" GridPane.rowIndex="2" />
+            <TableView fx:id="missingSantonsTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+              <columns>
+                <TableColumn fx:id="idManufacturerMissingColumn" prefWidth="75.0" text="Id" />
+                <TableColumn fx:id="nameMissingColumn" prefWidth="500.0" text="Nom" />
+                  <TableColumn fx:id="manufacturerMissingColumn" prefWidth="250.0" text="Santonnier" />
+              </columns>
+            </TableView>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>
