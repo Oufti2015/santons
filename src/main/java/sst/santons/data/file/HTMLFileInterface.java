@@ -119,14 +119,14 @@ public class HTMLFileInterface {
     private AbstractHTMLElement textTable(Santon santon) {
 	HTMLTable table = new HTMLTable();
 	table.style("width: 100%");
-	row(table, "Référence", "" + santon.getId());
-	row(table, "Référence du Santonnier", santon.getIdManufacturer());
+	row(table, "R&eacute;f&eacute;rence", "" + santon.getId());
+	row(table, "R&eacute;f&eacute;rence du Santonnier", santon.getIdManufacturer());
 	row(table, "Nom", santon.getName());
 	row(table, "Nom wallon / No Walon", santon.getWalloonName());
 	row(table, "Description", santon.getDescription());
-	row(table, "Surnom", santon.getSurname());
+	row(table, "Surnom", santon.getSurname() != null ? santon.getSurname() : "n/a");
 	row(table, "Santonnier", santon.getManufacturer().getName());
-	row(table, "Date d'aquisition", "" + santon.getAcquisitionDate());
+	row(table, "Date d'aquisition", santon.getAcquisitionDate() != null ? "" + santon.getAcquisitionDate() : "n/a");
 	row(table, "Lien du santonnier",
 		new HTMLHyperlinks().href(santon.getManufacturerLink()).textContent(santon.getName()));
 
