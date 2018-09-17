@@ -18,6 +18,7 @@ import sst.common.html.table.HTMLTable;
 import sst.common.html.table.HTMLTableRow;
 import sst.santons.data.DataModel;
 import sst.santons.data.Santon;
+import sst.santons.data.file.web.WebInterface;
 
 public class HTMLFileInterface {
 
@@ -32,6 +33,7 @@ public class HTMLFileInterface {
 
 	try {
 	    DataModelFileInterface.toFile("data/santons.json");
+	    WebInterface.toFile();
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
